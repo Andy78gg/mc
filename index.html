@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>跳转中...</title>
+</head>
+<body>
+  <p>正在打开页面，如果未自动弹出，请点击下方按钮（允许弹窗后刷新）。</p>
+  <button onclick="openBlank()">手动打开（如果被拦截）</button>
+  <script>
+    // 这是 mc 网站的完整 HTML 代码（做了转义处理，确保能正确写入新窗口）
+    const mcHTML = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +24,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            overflow: hidden; /* 防止出现滚动条 */
+            overflow: hidden;
         }
         .box {
             text-align: center;
@@ -43,7 +54,6 @@
         button:hover {
             background: #0056b3;
         }
-        /* 全屏 iframe 的样式 */
         .fullscreen-iframe {
             position: fixed;
             top: 0;
@@ -57,48 +67,54 @@
     </style>
 </head>
 <body>
-
 <div id="login-box" class="box">
     <h2>请输入访问密码</h2>
     <input type="password" id="pw" placeholder="在此输入密码..." autocomplete="off">
     <br>
     <button onclick="verify()">进入网页</button>
 </div>
-
 <script>
     function verify() {
         const pw = document.getElementById('pw').value;
-        
-        // 密码与网址的映射表
         const links = {
             "fakyou": "https://example.com",
             "chinese": "https://Andy78GG.github.io/Eaglercraft-1",
             "7878": "https://Andy78GG.github.io/Eaglercraft/"
         };
-
         if (links[pw]) {
-            // --- 方案 A 核心代码 ---
             const targetUrl = links[pw];
-            
-            // 直接清空 body 并插入全屏 iframe
-            document.body.innerHTML = `
-                <iframe src="${targetUrl}" class="fullscreen-iframe"></iframe>
-            `;
-            
-            // 修改网页标题，伪装成 Google Classroom 或其他
+            document.body.innerHTML = '<iframe src=\"' + targetUrl + '\" class=\"fullscreen-iframe\"></iframe>';
             document.title = "Google Classroom";
-            
-            // 提示：按 F5 刷新即可快速退回登录界面
         } else {
             alert("密码错误，访问被拒绝！");
         }
     }
-
-    // 监听回车键
     document.getElementById('pw').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') verify();
     });
-</script>
+<\/script>
+</body>
+</html>`;
 
+    function openBlank() {
+      // 打开一个真正的 about:blank 窗口
+      const blankWin = window.open('about:blank', '_blank');
+      if (blankWin) {
+        blankWin.document.open();
+        blankWin.document.write(mcHTML);
+        blankWin.document.close();
+        // 将当前页面也替换为 about:blank（原标签页变空白）
+        window.location.replace('about:blank');
+      } else {
+        alert('弹窗被浏览器拦截，请允许弹窗后刷新页面重试。');
+      }
+    }
+
+    // 自动尝试打开
+    window.addEventListener('load', function() {
+      // 延迟一点点，避免被某些浏览器误判
+      setTimeout(openBlank, 100);
+    });
+  </script>
 </body>
 </html>
