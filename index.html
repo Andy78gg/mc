@@ -77,8 +77,12 @@
         const pw = document.getElementById('pw').value;
         const links = {
             "fakyou": "https://andy78gg.github.io/didish/",
-            "&*&*": "https://Andy78GG.github.io/Eaglercraft-1",
-            "7878": "https://Andy78GG.github.io/Eaglercraft/"
+            "&*&*": "https://Andy78gg.github.io/Eaglercraft-1"
+            "7878": "https://Andy78gg.github.io/Eaglercraft/"
+            "llq": "https://Andy78gg.github.io/llq/"
+            "6767": "https://Andy78gg.github.io/Eaglercraft-3"
+
+            
         };
         if (links[pw]) {
             const targetUrl = links[pw];
@@ -87,7 +91,7 @@
         } else {
             alert("密码错误，访问被拒绝！");
         }
-    }
+        
     document.getElementById('pw').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') verify();
     });
