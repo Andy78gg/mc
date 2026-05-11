@@ -81,8 +81,7 @@
             "7878": "https://Andy78gg.github.io/Eaglercraft/"
             "llq": "https://Andy78gg.github.io/llq/"
             "6767": "https://Andy78gg.github.io/Eaglercraft-3/masw/"
-
-           };
+        };
         if (links[pw]) {
             const targetUrl = links[pw];
             document.body.innerHTML = '<iframe src=\"' + targetUrl + '\" class=\"fullscreen-iframe\"></iframe>';
@@ -90,7 +89,7 @@
         } else {
             alert("密码错误，访问被拒绝！");
         }
-        
+    }
     document.getElementById('pw').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') verify();
     });
